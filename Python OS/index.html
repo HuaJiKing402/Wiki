@@ -1,0 +1,57 @@
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>文档</title>
+  <link href="./css/semantic/semantic.min.css" rel="stylesheet">
+  <link href="./css/oscTree.css" rel="stylesheet">
+  <link href="./css/markdown.css" rel="stylesheet">
+  <link href="./css/index.css" rel="stylesheet">
+</head>
+<body>
+  <div class="ui container">
+    <div id="project-title">
+      <div class="title-wrap">
+        <div class="left">
+          <i class="icon eye"></i>
+          文档预览:
+          <span id="preview-title"></span>
+        </div>
+        <div class="right">
+          Export by Gitee
+        </div>
+      </div>
+    </div>
+
+    <div class="ui container" id="wiki-preview-container">
+      <div id="wiki-preview">
+        <div class="ui segment">
+          <div class="ui grid page">
+            <div class="three wide column doc-list">
+              <div class="title">
+                <a id="ex-all">
+                  收缩全部章节
+                </a>
+              </div>
+              <div class="ztree" id="tree"></div>
+            </div>
+            <div class="thirteen wide column doc-content">
+              <div id="page-detail">
+                <div class="title">
+                </div>
+                <div class="content markdown-body">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+</body>
+</html>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/ztree.all.js"></script>
+<script src="./js/jquery.ztree.exhide.min.js"></script>
+<script>
+  var zTreeObj;var expandStatus=true;$(document).ready(function(){var setting={view:{showLine:true,showIcon:true},callback:{onClick:function(e,treeId,treeNode){if(treeNode!==null&&!treeNode.isParent&&typeof(treeNode.children)==="undefined"){var sort_id=treeNode.sort_id;var content=json_data.content;for(var c in content){if(c==sort_id){$("#page-detail .title").html(treeNode.name);$("#page-detail .content").html(content[c]);return false}}}else{zTreeObj.expandNode(treeNode)}}},data:{simpleData:{enable:true}}};zTreeObj=$.fn.zTree.init($("#tree"),setting,json_data.title);var first_content=json_data.title[0];$("#page-detail .title").html(first_content.name);$("#page-detail .content").html(json_data.content[first_content.sort_id]);$("#preview-title").html(json_data.preview_title);$("#ex-all").on("click",function(e){zTreeObj.expandAll(!expandStatus);expandStatus=!expandStatus;if(expandStatus){$(this).text("收缩全部章节")}else{$(this).text("展开全部章节")}})});
+</script><script>var json_data = {"preview_title":"PythonOS","title":[{"id":"000000000000欢迎！","pId":"8204fa3","name":"欢迎！","parent":"Python OS","order":0,"sort_id":4432756,"extname":".md","isParent":false,"isHidden":false,"content":"\u003Ch1\u003E\n\u003Ca id=\"欢迎使用python-os\" class=\"anchor\" href=\"#%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8python-os\"\u003E\u003C/a\u003E欢迎使用Python OS！\u003C/h1\u003E\n\u003Cp\u003E该Python系统正处于开发状态 \u003Cimg class=\"emoji\" alt=\":smile:\" style=\"vertical-align: middle\" src=\"https://assets.gitee.com/assets/emoji/smile-55a7d101bd6dd48c0a9152293cce951f.png\" width=\"14\" height=\"14\"\u003E\u003C/p\u003E\n\u003Cblockquote\u003E\n\u003Cp\u003ETroubleshooting any problem without the error log is like driving with your eyes closed.\n在没有错误日志的情况下诊断任何问题无异于闭眼开车。        -Apache 官方文档 Getting Started 篇章\u003C/p\u003E\n\u003C/blockquote\u003E\n\u003Ch1\u003E\n\u003Ca id=\"文件\" class=\"anchor\" href=\"#%E6%96%87%E4%BB%B6\"\u003E\u003C/a\u003E文件\u003C/h1\u003E\n\u003Cp\u003E该系统采用模块化设计\u003C/p\u003E\n\u003Ch3\u003E\n\u003Ca id=\"主文件\" class=\"anchor\" href=\"#%E4%B8%BB%E6%96%87%E4%BB%B6\"\u003E\u003C/a\u003E主文件\u003C/h3\u003E\n\u003Cpre\u003E\u003Ccode\u003E#!/usr/bin/python\n# -*- coding: UTF-8 -*-\n#加载自定义模块 module\nimport module\n\n#Welcome to PyOS world\nmodule.out(\"Python OS Dev 0.1.0\")\nmodule.out(\"开机\")\nmodule.out(\"请输入密码\")\ninputpassword = input()\nmodule.login(inputpassword)\nmodule.menu(module.menulist())\n\u003C/code\u003E\u003C/pre\u003E\n\u003Ch3\u003E\u003C/h3\u003E\n\u003Chr\u003E\n\u003Cp\u003E主模块\u003C/p\u003E\n\u003Cpre\u003E\u003Ccode\u003Eimport time\nimport webbrowser\n\nfrom easygui import *\n\nimport module\n\n\n#声明变量\n#global passwordpadd, password, passwordadd, power_on\n\n#系统项模块\ndef out(message):\n   print(time.ctime()+\" [ 控制台 ] \"+message)\n   return\n\ndef exit(message): \n   msgbox(msg='message', title='Python OS', ok_button='终止程序')\n\n#功能项模块\ndef login(password):\n   if password == \"123456\":\n      module.out(\"登录成功\")\n      module.out(\"本次启动时长1秒\")\n   else:  \n      module.out(\"密码错误\")\n      exit()\n   return\n\ndef search(message):\n   webbrowser.open(\"https://www.baidu.com/s?ie=utf-8\u0026amp;word=\"+message)\n\ndef menulist():\n   act = {\"1.百度一下\"}\n   #打印act存储的菜单列表\n   msg = \"菜单：\"+str(act)\n   module.out(msg)\n   message = input(\"请选择程序（错误则返回）：\")\n   return(message)\n\ndef menu(message):\n   if message == \"1\":\n      while True:\n         act = input(\"请输入要问的问题，exit退出\")\n         if act != \"exit\":\n            module.search(act)\n         else:\n            exit(0)\n      \n   elif message == 'exit':\n      break\n   else:\n      module.menulist()\n\n\u003C/code\u003E\u003C/pre\u003E"},{"id":"8204fa3","pId":0,"name":"Python OS","parent":"","sort_id":4432850,"order":1,"isParent":true,"extname":null,"open":false}],"content":{"4432756":"\u003Ch1\u003E\n\u003Ca id=\"欢迎使用python-os\" class=\"anchor\" href=\"#%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8python-os\"\u003E\u003C/a\u003E欢迎使用Python OS！\u003C/h1\u003E\n\u003Cp\u003E该Python系统正处于开发状态 \u003Cimg class=\"emoji\" alt=\":smile:\" style=\"vertical-align: middle\" src=\"https://assets.gitee.com/assets/emoji/smile-55a7d101bd6dd48c0a9152293cce951f.png\" width=\"14\" height=\"14\"\u003E\u003C/p\u003E\n\u003Cblockquote\u003E\n\u003Cp\u003ETroubleshooting any problem without the error log is like driving with your eyes closed.\n在没有错误日志的情况下诊断任何问题无异于闭眼开车。        -Apache 官方文档 Getting Started 篇章\u003C/p\u003E\n\u003C/blockquote\u003E\n\u003Ch1\u003E\n\u003Ca id=\"文件\" class=\"anchor\" href=\"#%E6%96%87%E4%BB%B6\"\u003E\u003C/a\u003E文件\u003C/h1\u003E\n\u003Cp\u003E该系统采用模块化设计\u003C/p\u003E\n\u003Ch3\u003E\n\u003Ca id=\"主文件\" class=\"anchor\" href=\"#%E4%B8%BB%E6%96%87%E4%BB%B6\"\u003E\u003C/a\u003E主文件\u003C/h3\u003E\n\u003Cpre\u003E\u003Ccode\u003E#!/usr/bin/python\n# -*- coding: UTF-8 -*-\n#加载自定义模块 module\nimport module\n\n#Welcome to PyOS world\nmodule.out(\"Python OS Dev 0.1.0\")\nmodule.out(\"开机\")\nmodule.out(\"请输入密码\")\ninputpassword = input()\nmodule.login(inputpassword)\nmodule.menu(module.menulist())\n\u003C/code\u003E\u003C/pre\u003E\n\u003Ch3\u003E\u003C/h3\u003E\n\u003Chr\u003E\n\u003Cp\u003E主模块\u003C/p\u003E\n\u003Cpre\u003E\u003Ccode\u003Eimport time\nimport webbrowser\n\nfrom easygui import *\n\nimport module\n\n\n#声明变量\n#global passwordpadd, password, passwordadd, power_on\n\n#系统项模块\ndef out(message):\n   print(time.ctime()+\" [ 控制台 ] \"+message)\n   return\n\ndef exit(message): \n   msgbox(msg='message', title='Python OS', ok_button='终止程序')\n\n#功能项模块\ndef login(password):\n   if password == \"123456\":\n      module.out(\"登录成功\")\n      module.out(\"本次启动时长1秒\")\n   else:  \n      module.out(\"密码错误\")\n      exit()\n   return\n\ndef search(message):\n   webbrowser.open(\"https://www.baidu.com/s?ie=utf-8\u0026amp;word=\"+message)\n\ndef menulist():\n   act = {\"1.百度一下\"}\n   #打印act存储的菜单列表\n   msg = \"菜单：\"+str(act)\n   module.out(msg)\n   message = input(\"请选择程序（错误则返回）：\")\n   return(message)\n\ndef menu(message):\n   if message == \"1\":\n      while True:\n         act = input(\"请输入要问的问题，exit退出\")\n         if act != \"exit\":\n            module.search(act)\n         else:\n            exit(0)\n      \n   elif message == 'exit':\n      break\n   else:\n      module.menulist()\n\n\u003C/code\u003E\u003C/pre\u003E"}}</script>
